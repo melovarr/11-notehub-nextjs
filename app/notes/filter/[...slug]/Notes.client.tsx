@@ -10,7 +10,7 @@ import { fetchNotes } from "@/lib/api";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteModal from "@/components/NoteModal/NoteModal";
 import { useDebounce } from "use-debounce";
-import { FetchNotesResponse } from "@/lib/api";
+// import { FetchNotesResponse } from "@/lib/api";
 
 export default function NotesClient() {
   const params = useParams();
