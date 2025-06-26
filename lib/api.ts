@@ -17,6 +17,7 @@ interface FetchNotesParams {
   search?: string;
   page?: number;
   perPage?: number;
+  tag?: string;
 }
 
 const axiosInstance = axios.create({
@@ -28,12 +29,14 @@ const axiosInstance = axios.create({
 
 export async function fetchNotes(
   query: string,
-  page?: number
+  page?: number,
+  tag?: string
 ): Promise<FetchNotesResponse> {
   const params: FetchNotesParams = {
     ...(query.trim() !== "" && { search: query.trim() }),
     page: page,
     perPage: 12,
+    ...(tag && tag !== "All" && { tag }),
   };
 
   const response = await axiosInstance.get<FetchNotesResponse>("/notes", {
