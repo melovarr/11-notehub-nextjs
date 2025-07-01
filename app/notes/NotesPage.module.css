@@ -1,9 +1,8 @@
 .app {
-  width: 90%;
-  max-width: 1280px;
-  margin: 0px auto;
-  padding: 0 16px 16px;
-  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-left: 200px;
 }
 
 .toolbar {

@@ -10,12 +10,14 @@ import Pagination from "@/components/Pagination/Pagination";
 import NoteModal from "@/components/NoteModal/NoteModal";
 import { useDebounce } from "use-debounce";
 import { FetchNotesResponse } from "@/lib/api";
+import SidebarNotes from "@/components/SidebarNotes/SidebarNotes";
 
 interface NotesClientProps {
   initialNotesData: FetchNotesResponse;
+  tag?: string;
 }
 
-export default function NotesClient({ initialNotesData }: NotesClientProps) {
+export default function NotesClient({ initialNotesData, tag }: NotesClientProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,8 +26,8 @@ export default function NotesClient({ initialNotesData }: NotesClientProps) {
   const [debounseInputValue] = useDebounce(inputValue, 500);
 
   const notes = useQuery({
-    queryKey: ["notes", debounseInputValue, currentPage],
-    queryFn: () => fetchNotes(debounseInputValue, currentPage),
+    queryKey: ["notes", debounseInputValue, currentPage, tag],
+    queryFn: () => fetchNotes(debounseInputValue, currentPage, tag === "all" ? undefined : tag),
     placeholderData: keepPreviousData,
     initialData:
       !debounseInputValue && currentPage === 1 ? initialNotesData : undefined,
@@ -40,6 +42,7 @@ export default function NotesClient({ initialNotesData }: NotesClientProps) {
 
   return (
     <>
+      <SidebarNotes />
       <div className={css.app}>
         <header className={css.toolbar}>
           <div>
